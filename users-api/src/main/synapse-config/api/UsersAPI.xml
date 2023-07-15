@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/users" name="UsersAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET">
+        <inSequence>
+            <log level="full"/>
+            <propertyGroup>
+                <property expression="$trp:username" name="username" scope="default" type="STRING"/>
+                <property expression="$trp:password" name="password" scope="default" type="STRING"/>
+            </propertyGroup>
+            <log level="full">
+                <property expression="get-property(&quot;username&quot;) " name="usernameIS"/>
+            </log>
+            <call>
+                <endpoint key="gov:/endpoints/user-backend.xml"/>
+            </call>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
